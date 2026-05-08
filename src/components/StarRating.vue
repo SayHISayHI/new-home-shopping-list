@@ -14,25 +14,21 @@ const setRating = (rating: number) => {
 </script>
 
 <template>
-  <div class="flex items-center space-x-3">
+  <div class="flex items-center space-x-1.5">
     <template v-for="i in 5" :key="i">
       <div 
-        class="relative cursor-pointer select-none flex items-center justify-center transition-all duration-700"
+        class="relative cursor-pointer select-none group transition-transform duration-500 hover:scale-110"
         @click="setRating(i)"
       >
-        <!-- Ink Mark Marker -->
-        <div 
-          class="transition-all duration-700"
-          :class="[
-            modelValue >= i ? 'ink-mark scale-125' : (modelValue >= i - 0.5 ? 'ink-mark opacity-50' : 'ink-mark-empty'),
-            !readonly ? 'hover:scale-150' : ''
-          ]"
-        ></div>
-        
-        <!-- Half Mark Trigger -->
+        <span 
+          class="text-lg font-light transition-colors duration-700"
+          :class="modelValue >= i - 0.5 ? 'text-[#a67c52]' : 'text-gray-200'"
+        >
+          {{ modelValue >= i ? '✦' : (modelValue >= i - 0.5 ? '✧' : '✧') }}
+        </span>
         <div 
           v-if="!readonly"
-          class="absolute inset-y-0 -left-1 w-1/2 z-10"
+          class="absolute inset-0 w-1/2 h-full z-10"
           @click.stop="setRating(i - 0.5)"
         ></div>
       </div>
@@ -41,8 +37,7 @@ const setRating = (rating: number) => {
 </template>
 
 <style scoped>
-/* Individual styles if needed, but classes are in style.css */
-.ink-mark, .ink-mark-empty {
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+span {
+  font-family: serif;
 }
 </style>
